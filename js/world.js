@@ -4,7 +4,7 @@ function go()
 	var ctx = canvas.getContext('2d');
 
 	var num = 10;
-	var fps = 50;
+	var fps = 40;
 
 	canvas.width = $('#canvas-container').width();
 	canvas.height = $('#canvas-container').height();
@@ -51,10 +51,11 @@ function go()
 		return (alignment.angle() + Math.PI) / (Math.PI*2);
 	}
 
+
 	var loop = function()
 	{
 		// fade effect
-		ctx.globalAlpha=0.2;
+		ctx.globalAlpha=0.005;
 		ctx.fillStyle='#f4f4f4';
 		ctx.fillRect(0,0,world.width, world.height);
 		ctx.globalAlpha=1;
@@ -76,7 +77,7 @@ function go()
 			creature.moveTo(output);
 
 			// learn
-			var learningRate = .03;
+			var learningRate = .3;
 			var target = [targetX(creature), targetY(creature), targetAngle(creature)];
 			creature.network.propagate(learningRate, target);
 
@@ -84,7 +85,7 @@ function go()
 			creature.draw();
 		});
 		
-			setTimeout(loop, 1000/fps);
+		setTimeout(loop, 1000/fps);
 	}
 
 	// blastoff

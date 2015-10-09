@@ -3,7 +3,7 @@ function Creature(world, x, y)
 	this.network = new Architect.Perceptron(40, 25, 3);
 	this.world = world;
 	this.mass = .2;
-	this.maxspeed = 10;
+	this.maxspeed = 20;
 	this.maxforce = .2;
 	this.lookRange = this.mass * 200;
 	this.length = this.mass * 10;
@@ -53,15 +53,22 @@ Creature.prototype = {
 		x3 = this.location.x + Math.cos(angle - this.HALF_PI) * this.base;
 		y3 = this.location.y + Math.sin(angle - this.HALF_PI) * this.base;
 
-		ctx.lineWidth = 2;
-		ctx.fillStyle = this.color;
-		ctx.strokeStyle = this.color;
+		ctx.lineWidth = 1;
+		var color = this.getColor();
+		ctx.fillStyle = color;
+		ctx.strokeStyle = color;
 		ctx.beginPath();
 		ctx.moveTo(x1, y1);
 		ctx.lineTo(x2,y2);
 		ctx.lineTo(x3,y3);
 		ctx.stroke();
 		ctx.fill();
+	},
+
+	getColor: function() {
+		var colors = ["#FAD089", "#FF9C5B", "#F5634A", "#ED303C"];
+		var i = Math.floor((Math.random() * (colors.length - 1)));
+		return colors[i];
 	},
 
 	update: function()
